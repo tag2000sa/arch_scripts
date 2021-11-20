@@ -55,7 +55,7 @@ sleep 2
 # enable parallel downloads
 sed -i 's/^\#ParallelDownloads\ \=\ 5/ParallelDownloads\ \=\ 10/' /etc/pacman.conf
 #pacman -S --noconfirm grub efibootmgr networkmanager network-manager-applet dialog wpa_supplicant mtools dosfstools reflector base-devel linux-lts-headers avahi xdg-user-dirs xdg-utils gvfs gvfs-smb nfs-utils inetutils dnsutils bluez bluez-utils cups hplip alsa-utils pulseaudio xorg pavucontrol bash-completion openssh rsync openssh acpi acpi_call tlp virt-manager qemu qemu-arch-extra edk2-ovmf openbsd-netcat vde2 dnsmasq bridge-utils ipset firewalld flatpak sof-firmware nss-mdns acpid os-prober ntfs-3g terminus-font
-pacman -S --noconfirm grub efibootmgr networkmanager wpa_supplicant mtools dosfstools reflector base-devel linux-lts-headers avahi gvfs gvfs-smb nfs-utils inetutils dnsutils bluez bluez-utils cups hplip alsa-utils pulseaudio bash-completion openssh rsync openssh acpi acpi_call tlp virt-manager qemu qemu-arch-extra edk2-ovmf openbsd-netcat dnsmasq bridge-utils ipset firewalld flatpak sof-firmware nss-mdns acpid os-prober ntfs-3g terminus-font
+pacman -S --noconfirm grub efibootmgr networkmanager wpa_supplicant mtools dosfstools reflector base-devel linux-lts-headers avahi gvfs gvfs-smb nfs-utils inetutils dnsutils bluez bluez-utils cups hplip alsa-utils pulseaudio bash-completion openssh rsync openssh acpi acpi_call tlp virt-manager qemu qemu-arch-extra edk2-ovmf openbsd-netcat dnsmasq bridge-utils ipset firewalld flatpak sof-firmware nss-mdns acpid os-prober ntfs-3g terminus-font curl wget most htop cmatrix gcc gdb lsd ranger vi
 
 # select video-graphic driver
 printf "\e[1;32mInstall VGA driver.\n\e[0m"
@@ -88,14 +88,37 @@ systemctl enable firewalld
 systemctl enable acpid
 
 # create new user
-printf "\e[1;32mCreate new user (user)\n\e[0m"
-sleep 2
-user="user"
+printf "\e[1;32mCreate new user\n\e[0m"
+sleep 1
+printf "\e[1;31m  Enter your username: \e[1;33m"
+#user="user"
+read user
+printf "\e[0m"
+printf "\e[1;31m  Enter your password: \e[1;33m"
+read pwd
+printf "\e[0m"
 useradd -m $user
-echo $user:123 | chpasswd
-usermod -aG libvirt $user
+echo $user:$pwd | chpasswd
+usermod -aG libvirt,sudo $user
 
 # make user sudoer
-echo "user ALL=(ALL) ALL" >> /etc/sudoers.d/user
+#echo "$user ALL=(ALL) ALL" >> /etc/sudoers.d/$user
+sed 's/\#\ \%sudo/\ \%sudo/' /etc/sudoers
+
+# create user home folders
+printf "\e[1;32mCreate ( \e[1;33m$user\e[1;32m ) home folder.\e[0m"
+userHOME=/home/$user
+mkdir -p $userHOME/Desktop $userHOME/Documents $userHOME/Downloads $userHOME/trash
+printf "\e[1;35mUser ( \e[1;33m$user\e[1;32m ) Created.\e[0m"
+sleep 1
+
+# install vim configs
+printf "\e[1;32mInstall Vim Config\e[0m"
+sudo -u $user git clone https://github.com/tag20000sa/vim_config.git /.vim_config
+printf "\e[1;33m - installed for root\e[0m"
+.vim_config/install_vim_config.sh
+printf "\e[1;32m - installed for \e[1;33m$user\e[0m"
+sudo -u $user .vim_config/install_vim_config.sh
+
 
 printf "\e[1;33mDone!\n\e[1;32mType:\n\texit\n\tumount -R /mnt\n\treboot\n\e[0m"
