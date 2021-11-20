@@ -98,8 +98,9 @@ echo $user:$pwd | chpasswd
 usermod -aG libvirt,sudo $user
 
 # make user sudoer
+printf "\e[1;32mMake user ( \e[1;33m$user\e[1;32m ) sudoer.\n\e[0m"
 #echo "$user ALL=(ALL) ALL" >> /etc/sudoers.d/$user
-sed 's/\#\ \%sudo/\ \%sudo/' /etc/sudoers
+sed -i 's/\#\ \%sudo/\ \%sudo/' /etc/sudoers
 
 # create user home folders
 printf "\e[1;32mCreate ( \e[1;33m$user\e[1;32m ) home folder.\n\e[0m"
@@ -111,14 +112,15 @@ sleep 1
 # install vim configs
 printf "\e[1;32mInstall Vim Config\n\e[0m"
 git clone https://github.com/tag2000sa/vim_config.git /.vim_config
-cd /.vim_config
+pushd /.vim_config
 ./install_vim_config.sh
 printf "\e[1;36m - installed for root\n\e[0m"
 sudo -u $user ./install_vim_config.sh
+popd
 printf "\e[1;36m - installed for \e[1;33m$user\n\e[0m"
 
 # set default font size
 if [[ `grep "FONT" /etc/vconsole.conf` == FONT* ]];then sed -i '/FONT\=/d' /etc/vconsole.conf; fi
 echo "FONT=\"ter-128n\"" >> /etc/vconsole.conf
 
-printf "\e[1;33mDone!\n\e[1;32mType:\n\texit\n\tumount -R /mnt\n\treboot\n\e[0m"
+printf "\e[1;31m-------------------- Done!--------------------\n\e[1;32mType:\n\texit\n\tumount -R /mnt\n\treboot\n\e[0m"
