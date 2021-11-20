@@ -96,6 +96,7 @@ read pwd
 printf "\e[0m"
 useradd -m $user
 echo $user:$pwd | chpasswd
+groupadd sudo
 usermod -aG libvirt,sudo $user
 
 # make user sudoer
