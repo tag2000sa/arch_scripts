@@ -2,10 +2,6 @@
 printf "\e[1;36mWelcome to AutoInstaller Script.\n\e[0m"
 sleep 2
 
-# set default font size
-if [[ `grep "FONT" /etc/vconsole.conf` == FONT* ]];then sed '/FONT\=/d' /etc/vconsole.conf; fi
-echo "FONT=\"ter-128n\"" >> /etc/vconsole.conf
-
 # create swap-file
 printf "\e[1;32mCreate Swap-File.\n\e[0m"
 sleep 2
@@ -120,5 +116,8 @@ printf "\e[1;33m - installed for root\e[0m"
 printf "\e[1;32m - installed for \e[1;33m$user\e[0m"
 sudo -u $user .vim_config/install_vim_config.sh
 
+# set default font size
+if [[ `grep "FONT" /etc/vconsole.conf` == FONT* ]];then sed '/FONT\=/d' /etc/vconsole.conf; fi
+echo "FONT=\"ter-128n\"" >> /etc/vconsole.conf
 
 printf "\e[1;33mDone!\n\e[1;32mType:\n\texit\n\tumount -R /mnt\n\treboot\n\e[0m"
