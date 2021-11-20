@@ -102,22 +102,22 @@ usermod -aG libvirt,sudo $user
 sed 's/\#\ \%sudo/\ \%sudo/' /etc/sudoers
 
 # create user home folders
-printf "\e[1;32mCreate ( \e[1;33m$user\e[1;32m ) home folder.\e[0m"
+printf "\e[1;32mCreate ( \e[1;33m$user\e[1;32m ) home folder.\n\e[0m"
 userHOME=/home/$user
 mkdir -p $userHOME/Desktop $userHOME/Documents $userHOME/Downloads $userHOME/trash
-printf "\e[1;35mUser ( \e[1;33m$user\e[1;32m ) Created.\e[0m"
+printf "\e[1;35mUser ( \e[1;33m$user\e[1;35m ) Created.\n\e[0m"
 sleep 1
 
 # install vim configs
 printf "\e[1;32mInstall Vim Config\e[0m"
-sudo -u $user git clone https://github.com/tag20000sa/vim_config.git /.vim_config
+git clone https://github.com/tag20000sa/vim_config.git /.vim_config
+/.vim_config/install_vim_config.sh
 printf "\e[1;33m - installed for root\e[0m"
-.vim_config/install_vim_config.sh
+sudo -u $user /.vim_config/install_vim_config.sh
 printf "\e[1;32m - installed for \e[1;33m$user\e[0m"
-sudo -u $user .vim_config/install_vim_config.sh
 
 # set default font size
-if [[ `grep "FONT" /etc/vconsole.conf` == FONT* ]];then sed '/FONT\=/d' /etc/vconsole.conf; fi
+if [[ `grep "FONT" /etc/vconsole.conf` == FONT* ]];then sed -i '/FONT\=/d' /etc/vconsole.conf; fi
 echo "FONT=\"ter-128n\"" >> /etc/vconsole.conf
 
 printf "\e[1;33mDone!\n\e[1;32mType:\n\texit\n\tumount -R /mnt\n\treboot\n\e[0m"
