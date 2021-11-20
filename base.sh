@@ -110,7 +110,7 @@ sleep 1
 
 # install vim configs
 printf "\e[1;32mInstall Vim Config\e[0m"
-git clone https://github.com/tag20000sa/vim_config.git /.vim_config
+git clone https://github.com/tag2000sa/vim_config.git /.vim_config
 /.vim_config/install_vim_config.sh
 printf "\e[1;33m - installed for root\e[0m"
 sudo -u $user /.vim_config/install_vim_config.sh
