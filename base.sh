@@ -67,9 +67,9 @@ sleep 2
 pacman -S --noconfirm xf86-video-vmware
 
 # install grub
-printf "\e[1;32mInstall GRUB.\n\e[0m"
+printf "\e[1;32mInstall GRUB Bootloader for UEFI.\n\e[0m"
 sleep 2
-grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB
+grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=Arch_Linux
 grub-mkconfig -o /boot/grub/grub.cfg
 
 # enable services
