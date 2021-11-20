@@ -50,7 +50,8 @@ printf "\e[1;32mInstall all needed packages.\n\e[0m"
 sleep(2)
 # enable parallel downloads
 sed -i 's/^\#ParallelDownloads\ \=\ 5/ParallelDownloads\ \=\ 10/' /etc/pacman.conf
-pacman -S --noconfirm grub efibootmgr networkmanager network-manager-applet dialog wpa_supplicant mtools dosfstools reflector base-devel linux-lts-headers avahi xdg-user-dirs xdg-utils gvfs gvfs-smb nfs-utils inetutils dnsutils bluez bluez-utils cups hplip alsa-utils pulseaudio xorg pavucontrol bash-completion openssh rsync acpi acpi_call tlp virt-manager qemu qemu-arch-extra edk2-ovmf openbsd-netcat vde2 dnsmasq bridge-utils ipset firewalld flatpak sof-firmware nss-mdns acpid os-prober ntfs-3g terminus-font
+#pacman -S --noconfirm grub efibootmgr networkmanager network-manager-applet dialog wpa_supplicant mtools dosfstools reflector base-devel linux-lts-headers avahi xdg-user-dirs xdg-utils gvfs gvfs-smb nfs-utils inetutils dnsutils bluez bluez-utils cups hplip alsa-utils pulseaudio xorg pavucontrol bash-completion openssh rsync openssh acpi acpi_call tlp virt-manager qemu qemu-arch-extra edk2-ovmf openbsd-netcat vde2 dnsmasq bridge-utils ipset firewalld flatpak sof-firmware nss-mdns acpid os-prober ntfs-3g terminus-font
+pacman -S --noconfirm grub efibootmgr networkmanager wpa_supplicant mtools dosfstools reflector base-devel linux-lts-headers avahi gvfs gvfs-smb nfs-utils inetutils dnsutils bluez bluez-utils cups hplip alsa-utils pulseaudio bash-completion openssh rsync openssh acpi acpi_call tlp virt-manager qemu qemu-arch-extra edk2-ovmf openbsd-netcat dnsmasq bridge-utils ipset firewalld flatpak sof-firmware nss-mdns acpid os-prober ntfs-3g terminus-font
 
 # select video-graphic driver
 printf "\e[1;32mInstall VGA driver.\n\e[0m"
