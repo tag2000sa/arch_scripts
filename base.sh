@@ -109,12 +109,13 @@ printf "\e[1;35mUser ( \e[1;33m$user\e[1;35m ) Created.\n\e[0m"
 sleep 1
 
 # install vim configs
-printf "\e[1;32mInstall Vim Config\e[0m"
+printf "\e[1;32mInstall Vim Config\n\e[0m"
 git clone https://github.com/tag2000sa/vim_config.git /.vim_config
-/.vim_config/install_vim_config.sh
-printf "\e[1;33m - installed for root\e[0m"
-sudo -u $user /.vim_config/install_vim_config.sh
-printf "\e[1;32m - installed for \e[1;33m$user\e[0m"
+cd /.vim_config
+./install_vim_config.sh
+printf "\e[1;36m - installed for root\n\e[0m"
+sudo -u $user ./install_vim_config.sh
+printf "\e[1;36m - installed for \e[1;33m$user\n\e[0m"
 
 # set default font size
 if [[ `grep "FONT" /etc/vconsole.conf` == FONT* ]];then sed -i '/FONT\=/d' /etc/vconsole.conf; fi
