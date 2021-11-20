@@ -29,9 +29,10 @@ echo "LANG=en_US.UTF-8" >> /etc/locale.conf
 echo "KEYMAP=us" >> /etc/vconsole.conf
 
 # set PC name
-printf "\e[1;32mSet PC name.\n\e[0m"
+host="ArchLinux"
+printf "\e[1;32mSet PC name ( \e[1;31m$host\e[1;32m ).\n\e[0m"
 sleep 2
-echo "arch" >> /etc/hostname
+echo $host >> /etc/hostname
 
 # set localhost
 printf "\e[1;32mConfigure localhost.\n\e[0m"
