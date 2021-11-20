@@ -3,7 +3,8 @@ printf "\e[1;36mWelcome to AutoInstaller Script.\n\e[0m"
 sleep 2
 
 # set default font size
-echo "setfont ter-128n" >> /etc/vconsole.conf
+if [[ `grep "FONT" /etc/vconsole.conf` == FONT* ]];then sed '/FONT\=/d' /etc/vconsole.conf; fi
+echo "FONT=\"ter-128n\"" >> /etc/vconsole.conf
 
 # create swap-file
 printf "\e[1;32mCreate Swap-File.\n\e[0m"
