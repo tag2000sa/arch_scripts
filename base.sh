@@ -108,6 +108,7 @@ sed -i 's/\#\ \%sudo/\ \%sudo/' /etc/sudoers
 printf "\e[1;32mCreate ( \e[1;33m$user\e[1;32m ) home folder.\n\e[0m"
 userHOME=/home/$user
 mkdir -p $userHOME/Desktop $userHOME/Documents $userHOME/Downloads $userHOME/trash
+chown $user:$user $userHOME/D* $userHOME/trash
 printf "\e[1;35mUser ( \e[1;33m$user\e[1;35m ) Created.\n\e[0m"
 sleep 1
 
